@@ -20,7 +20,6 @@ public class Validate {
 
         }
         catch(Exception e) {
-            System.out.println("hola!!!!!!");
             e.printStackTrace();
         }
         return st;                 

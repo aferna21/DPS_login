@@ -1,16 +1,6 @@
 # DPS_login
 
 
-https://www.studytonight.com/servlet/login-system-example-in-servlet.php check it for avoiding security issues
-
--Send me a link (fjrodl (at) unileon (dot) es) to your repo (public or
-private). It should has a README with the issues, and the solution
-(if any).
--You can also add to the README how to test it and the
-characteristics of your development environment (java version, IDE,
-compiler, server, and license).
--Upload to Agora the README file with a link to your repo.
-
 
 El entorno que se va a utilizar es el siguiente:
 
@@ -103,16 +93,33 @@ El framework servlet requiere de las clases de java compiladas para poder enlaza
 
 Accediendo a http://localhost:8080/DPS_Login la práctica funcionará.
 
+La clase App.java es para hacer la prueba de conexión y validación a la base de datos. Se debería omitir del resultado final.
 
 A continuación, se pasarán a explicar los fallos de seguridad. Para ello, es muy importante tener actualizados tanto el servidor en el que se
 aloja la aplicación como las libererías que se utilizan, puesto que pueden tener lugar fallos de seguridad más allá del código
 (por ejemplo, SQL Injection en la función prepareStatement de la clase Connection). 
+
+
+PARA REPLICAR LA PRÁCTICA:
+
+Descargar el repositorio y moverlo a la carpeta webapps del directorio donde se encuentre instalado tomcat.
+Para acceder a él, arrancar el servicio de tomcat y entrar en http://localhost:8080/DPS_login
+
+
 FALLOS DE SEGURIDAD:
 
--El tipo de entrada de la contraseña en la página no es "password", por lo que se ve en la pantalla al escribirla.
+-(ARREGLADO EN CÓDIGO) SEC00-J. Do not allow privileged blocks to leak sensitive information across a trust boundary El tipo de entrada de la contraseña en la página no es "password", por lo que se ve en la pantalla al escribirla.
 
--No utiliza SSL en la conexión con la base de datos, arreglado añadiendo useSSL=true.
+-(ARREGLADO EN CÓDIGO) MSC00-J. Use SSLSocket rather than Socket for secure data exchange. No utiliza SSL en la conexión con la base de datos, arreglado añadiendo useSSL=true.
 
--El usuario con el que accede a la base de datos es el usuario root. Arreglado, teniendo únicamente un usuario con permisos a esa base de datos.
+-(ARREGLADO EN CÓDIGO) El usuario con el que accede a la base de datos es el usuario root. Arreglado, teniendo únicamente un usuario con permisos a esa base de datos.
+
+-IDS01-J. Normalize strings before validating them: clase Login.java, líneas 13 y 14. Aún sanitizando los Strings con el método prepareStatement, deberían comprobarse antes.
+
+-ENV01-J. Place all security-sensitive code in a single JAR and sign and seal it. El proceso de validar y loggear se encuentran en clases diferentes.
+
+-MSC03-J. Never hard code sensitive information. Se encuentran dirección, usuario y contraseña de la base de datos en la clase Validate.
+
+-La contraseña está almacenada en limpio y no con una función hash. 
 
 
