@@ -1,5 +1,4 @@
 # DPS_login
-https://www3.ntu.edu.sg/home/ehchua/programming/java/JavaServlets.html#helloservlet el tutorial pa montarlo todo correctamente. 
 
 
 https://www.studytonight.com/servlet/login-system-example-in-servlet.php check it for avoiding security issues
@@ -94,14 +93,26 @@ WantedBy=multi-user.target
     -$ "sudo ufw allow 8080/tcp"
     -Para comprobar que funcione entrar en http://localhost:8080
 
-    -$ ""
-    -$ ""
-    -$ ""
-    -$ ""
-    -$ ""
-    -$ ""
-    -$ ""
-    -$ ""
 
+
+Para que funcione correctamente en Tomcat, he creado un soft-link de la carpeta que contiene el código fuente y la he metido en /opt/tomcat/webapps
+
+El framework servlet requiere de las clases de java compiladas para poder enlazarlas correctamente, para ello se han compilado con el comando:
+-$ "cd DPS_login/"
+-$ "javac -cp /opt/tomcat/webapps/DPS_login/WEB-INF/lib/servlet-api.jar -d WEB-INF/classes/ WEB-INF/src/*.java"
+
+Accediendo a http://localhost:8080/DPS_Login la práctica funcionará.
+
+
+A continuación, se pasarán a explicar los fallos de seguridad. Para ello, es muy importante tener actualizados tanto el servidor en el que se
+aloja la aplicación como las libererías que se utilizan, puesto que pueden tener lugar fallos de seguridad más allá del código
+(por ejemplo, SQL Injection en la función prepareStatement de la clase Connection). 
+FALLOS DE SEGURIDAD:
+
+-El tipo de entrada de la contraseña en la página no es "password", por lo que se ve en la pantalla al escribirla.
+
+-No utiliza SSL en la conexión con la base de datos, arreglado añadiendo useSSL=true.
+
+-El usuario con el que accede a la base de datos es el usuario root. Arreglado, teniendo únicamente un usuario con permisos a esa base de datos.
 
 

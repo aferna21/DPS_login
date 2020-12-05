@@ -11,7 +11,7 @@ public class Validate {
             Class.forName("com.mysql.jdbc.Driver");
 
             //creating connection with the database
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?verifyServerCertificate=false&useSSL=true","user","studytonight"); //fallo, no usa ssl
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?verifyServerCertificate=false&useSSL=true","user","studytonight"); //fallo, no usa ssl y se conectaba con root
             PreparedStatement ps = con.prepareStatement("select * from register where email=? and pass=?");
             ps.setString(1, email);
             ps.setString(2, pass);
